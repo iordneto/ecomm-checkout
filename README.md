@@ -1,42 +1,36 @@
-# Implement Front-End Page
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Objective
+## Getting Started
 
-Your assignment is to build the checkout front end of a checkout page.
+First, run the development server:
 
-Here we work with TypeScript, Next.js, Sass. It is not mandatory to use these tools for the test, but it is very important to keep it in mind.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-### Step by Step:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- Reproduce the visual and behavioral elements presented in the provided reference in figma.
-- Model a Mock API with dynamic data.
-- Consume this Mock API in the front end. 
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-### Provided Resources
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-Here is the link to the layout in [Figma](https://www.figma.com/design/bGNgbhR5w3H5T0h9bJFkOe/%F0%9F%94%AE%5B-MISC-%5D-Frontent-test-reference-screens?node-id=9-4914&m=dev).
+## Learn More
 
-We don't provide a mock API; this is part of the test. 
+To learn more about Next.js, take a look at the following resources:
 
-#### Task 1: Create front Layout
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-- **Implement the components:** Analyze the image and identify which components need to be created (buttons, inputs, cards, lists, etc.).
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-  Faithfully reproduce the expected behavior of these components (styles, interactions, internal states, etc.).&#x20;
+## Deploy on Vercel
 
-&#x20;
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-- **Organize the code:** Each component is independent and can be easily reused.&#x20;
-
-- **Layout:** Ensure 80% fidelity; it does not need to be perfect, but it should have a high level of accuracy.
-
-#### Task 2: Design and create an API
-
-- **Model a mock API** with the data to be consumed in the front end. You can model it in any way you find most suitable for front-end consumption.
-
-* Choose a tool to simulate the API (suggestions: JSON Server, MirageJS, or any other approach you prefer). Structure the data as you see fit (design endpoints, create routes, and define the format of each resource).
-
-#### Task 3: Consume API from Front-end
-
-- Make the front end dynamic and integrate it with the mock API.
-- After building the API, ensure that the front end is able to consume the API's data and display it as expected on the screen.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
