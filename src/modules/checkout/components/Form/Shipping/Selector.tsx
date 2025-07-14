@@ -6,11 +6,13 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 
+import type { ShippingOption as ShippingOptionType } from "@/lib/api";
+import fetcher from "@/lib/fetcher";
 import { CheckoutFormData } from "@/modules/checkout/schemas/form";
-import { ShippingData } from "../../../types/shipping";
+import useSWR from "swr";
 import MoreOptionsButton from "./MoreOptionsButton";
 import ShippingOption from "./Option";
 
@@ -19,37 +21,36 @@ type ShippingSelectorProps = {
 };
 
 const ShippingSelector = ({ form }: ShippingSelectorProps) => {
-  const shippingOptions: ShippingData[] = [
-    {
-      id: "retirar",
-      title: "Pedido a ser retirado em MUNDALUA Castelo",
-      description: "Avenida Miguel Perrela, 455 - Castelo",
-      price: 0,
-    },
-    {
-      id: "sedex",
-      title: "Sedex",
-      description: "Entrega em 3 dias úteis",
-      price: 10,
-    },
-    {
-      id: "pac",
-      title: "PAC",
-      description: "Entrega em 5 dias úteis",
-      price: 15,
-    },
-  ];
+  const { data: shippingOptions, isLoading } = useSWR<ShippingOptionType[]>(
+    "/api/shipping",
+    fetcher
+  );
   const [expanded, setExpanded] = useState(false);
 
   const selectedOptionId = form.watch("shipping");
 
-  const options = expanded
-    ? shippingOptions
-    : shippingOptions.filter((option) => option.id === selectedOptionId);
+  const options = useMemo(() => {
+    if (!shippingOptions) return [];
+
+    return expanded
+      ? shippingOptions
+      : shippingOptions.filter((option) => option.id === selectedOptionId);
+  }, [expanded, shippingOptions, selectedOptionId]);
 
   const handleToggleExpand = () => {
     setExpanded(!expanded);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-3">
+        <div className="animate-pulse">
+          <div className="h-16 bg-gray-200 rounded"></div>
+          <div className="h-16 bg-gray-200 rounded mt-2"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-3">

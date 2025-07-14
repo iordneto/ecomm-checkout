@@ -11,8 +11,12 @@ import {
   checkoutFormSchema,
   type CheckoutFormData,
 } from "@/modules/checkout/schemas/form";
+import { searchAddress } from "@/modules/checkout/services/searchAddress";
+import { useState } from "react";
 
 const CheckoutPage = () => {
+  const [showAddress, setShowAddress] = useState(false);
+
   const form = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutFormSchema),
     mode: "onChange",
@@ -25,11 +29,24 @@ const CheckoutPage = () => {
       otherPerson: false,
       otherPersonName: "",
       otherPersonLastName: "",
-      shipping: "retirar",
+      shipping: "1",
       country: "",
       cpf: "",
     },
   });
+
+  const handleAddressChange = (zipCode: string) => {
+    searchAddress(zipCode).then((data) => {
+      if (data) {
+        form.setValue("street", data?.street || "");
+        form.setValue("neighborhood", data?.neighborhood || "");
+        form.setValue("city", data?.city || "");
+        form.setValue("state", data?.state || "");
+        form.setValue("country", data?.country || "");
+        setShowAddress(true);
+      }
+    });
+  };
 
   const onSubmit = (data: CheckoutFormData) => {
     console.log(data);
@@ -41,7 +58,11 @@ const CheckoutPage = () => {
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-3 md:flex-row ">
             <div className="w-full md:w-8/12">
-              <CheckoutForm form={form} />
+              <CheckoutForm
+                form={form}
+                onAddressChange={handleAddressChange}
+                showAddress={showAddress}
+              />
             </div>
             <div className="w-full md:w-4/12">
               <CheckoutSummary />

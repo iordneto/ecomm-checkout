@@ -125,10 +125,16 @@ function FormControl({
       {...props}
     >
       {React.isValidElement(children)
-        ? React.cloneElement(children as React.ReactElement<any>, {
-            isValid,
-            isInvalid: !!error,
-          })
+        ? React.cloneElement(
+            children as React.ReactElement<{
+              isValid: boolean;
+              isInvalid: boolean;
+            }>,
+            {
+              isValid,
+              isInvalid: !!error,
+            }
+          )
         : children}
     </Slot>
   );

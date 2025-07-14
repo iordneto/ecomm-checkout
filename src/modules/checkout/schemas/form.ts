@@ -23,6 +23,10 @@ export const checkoutFormSchema = z
     otherPersonLastName: z.string().optional(),
     shipping: z.string().min(1, "Frete é obrigatório"),
     country: z.string().min(1, "País é obrigatório"),
+    state: z.string().min(1, "Estado é obrigatório"),
+    city: z.string().min(1, "Cidade é obrigatório"),
+    neighborhood: z.string().min(1, "Bairro é obrigatório"),
+    street: z.string().min(1, "Rua é obrigatório"),
     cpf: z
       .string()
       .min(1, "CPF/CNPJ é obrigatório")

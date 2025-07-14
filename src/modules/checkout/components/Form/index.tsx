@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   FormControl,
@@ -12,10 +13,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AnimatePresence, motion } from "framer-motion";
 import { debounce } from "lodash";
+import { MapPin } from "lucide-react";
 import { ChangeEvent, PropsWithChildren, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { CheckoutFormData } from "../../schemas/form";
-import { searchAddress } from "../../services/searchAddress";
 import ShippingSelector from "./Shipping/Selector";
 
 type FormSectionProps = PropsWithChildren & {
@@ -33,16 +34,27 @@ const Section = ({ title, children }: FormSectionProps) => {
 
 type CheckoutFormProps = {
   form: UseFormReturn<CheckoutFormData>;
+  onAddressChange: (zipCode: string) => void;
+  showAddress: boolean;
 };
 
-const CheckoutForm = ({ form }: CheckoutFormProps) => {
+const CheckoutForm = ({
+  form,
+  onAddressChange,
+  showAddress,
+}: CheckoutFormProps) => {
   const [isOtherPerson, setIsOtherPerson] = useState(false);
+  const showZipCode = !showAddress;
 
   const handleSearchAddress = (e: ChangeEvent<HTMLInputElement>) => {
-    searchAddress(e.target.value);
+    onAddressChange(e.target.value);
   };
-
   const debouncedSearchAddress = debounce(handleSearchAddress, 500);
+
+  const addressFirstLine = form.watch("street");
+  const zipCodeFormatted = `CEP ${form.watch("zipCode")}`;
+  const neighborhood = form.watch("neighborhood");
+  const addressThirdLine = form.watch("city") + " " + form.watch("state");
 
   return (
     <div className="flex flex-col items-end gap-2.5">
@@ -133,25 +145,52 @@ const CheckoutForm = ({ form }: CheckoutFormProps) => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="zipCode"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  placeholder="CEP"
-                  {...field}
-                  onChange={(e) => {
-                    field.onChange(e);
-                    debouncedSearchAddress(e);
-                  }}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {showZipCode && (
+          <FormField
+            control={form.control}
+            name="zipCode"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    placeholder="CEP"
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      debouncedSearchAddress(e);
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
+
+        {showAddress && (
+          <div className="p-3 border rounded-md w-full flex items-center justify-between">
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex items-center justify-center">
+                <MapPin className="w-4 h-5 text-foreground" />
+              </div>
+              <div className="flex flex-col text-xs">
+                <div>{addressFirstLine}</div>
+                <div>
+                  <span className="font-bold">{zipCodeFormatted}</span> -{" "}
+                  {neighborhood}
+                </div>
+                <div>{addressThirdLine}</div>
+              </div>
+            </div>
+            <Button
+              variant="link"
+              className="text-xs text-brand underline cursor-pointer  hover:scale-105 transition-all duration-300"
+            >
+              Alterar
+            </Button>
+          </div>
+        )}
+
         <div className="flex items-center gap-2">
           <FormField
             control={form.control}

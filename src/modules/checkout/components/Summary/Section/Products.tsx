@@ -1,21 +1,25 @@
+"use client";
+
 import Image from "@/components/Image";
+import type { CartSummary } from "@/lib/api";
+import fetcher from "@/lib/fetcher";
 import { formatPrice } from "@/lib/utils";
+import { useMemo } from "react";
+import useSWR from "swr";
 
 const ProductsSection = () => {
-  const products = [
-    {
-      id: 1,
-      image: "https://placehold.co/51x64/png",
-      name: "Produto #1",
-      price: 100000,
-    },
-    {
-      id: 2,
-      image: "https://placehold.co/51x64/png",
-      name: "Produto #2",
-      price: 15000,
-    },
-  ];
+  const { data, isLoading } = useSWR<CartSummary>("/api/cart", fetcher);
+  const products = useMemo(() => data?.products || [], [data]);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-3 w-full">
+        <div className="animate-pulse">
+          <div className="h-16 bg-gray-200 rounded"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-3 w-full">
