@@ -33,6 +33,7 @@ const MoreOptionsButton = ({ expanded, onClick }: MoreOptionsButtonProps) => {
           className="w-full flex justify-center"
         >
           <Button
+            type="button"
             variant="link"
             className="text-brand hover:text-brand/80 cursor-pointer"
             onClick={handleToggleExpand}

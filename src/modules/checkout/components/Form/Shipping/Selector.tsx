@@ -1,12 +1,24 @@
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { UseFormReturn } from "react-hook-form";
 
+import { CheckoutFormData } from "@/modules/checkout/schemas/form";
 import { ShippingData } from "../../../types/shipping";
 import MoreOptionsButton from "./MoreOptionsButton";
 import ShippingOption from "./Option";
 
-const ShippingSelector = () => {
+type ShippingSelectorProps = {
+  form: UseFormReturn<CheckoutFormData>;
+};
+
+const ShippingSelector = ({ form }: ShippingSelectorProps) => {
   const shippingOptions: ShippingData[] = [
     {
       id: "retirar",
@@ -28,42 +40,45 @@ const ShippingSelector = () => {
     },
   ];
   const [expanded, setExpanded] = useState(false);
-  const [selectedOptionId, setSelectedOptionId] = useState<string>(
-    shippingOptions[0].id
-  );
-  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const selectedOptionId = form.watch("shipping");
 
   const options = expanded
     ? shippingOptions
     : shippingOptions.filter((option) => option.id === selectedOptionId);
 
   const handleToggleExpand = () => {
-    setIsTransitioning(true);
     setExpanded(!expanded);
-
-    // Reaparecer o botão após a transição
-    setTimeout(() => {
-      setIsTransitioning(false);
-    }, 200);
   };
 
   return (
     <div className="flex flex-col gap-3">
-      <RadioGroup
-        defaultValue="retirar"
-        value={selectedOptionId}
-        onValueChange={setSelectedOptionId}
-      >
-        <AnimatePresence>
-          {options.map((option, index) => (
-            <ShippingOption
-              key={option.id}
-              {...option}
-              isSelected={option.id === selectedOptionId}
-            />
-          ))}
-        </AnimatePresence>
-      </RadioGroup>
+      <FormField
+        control={form.control}
+        name="shipping"
+        render={({ field }) => (
+          <FormItem>
+            <FormControl>
+              <RadioGroup
+                defaultValue={field.value}
+                value={field.value}
+                onValueChange={field.onChange}
+              >
+                <AnimatePresence>
+                  {options.map((option) => (
+                    <FormItem key={option.id}>
+                      <FormControl>
+                        <ShippingOption {...option} />
+                      </FormControl>
+                    </FormItem>
+                  ))}
+                </AnimatePresence>
+              </RadioGroup>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
       <MoreOptionsButton expanded={expanded} onClick={handleToggleExpand} />
     </div>
   );
