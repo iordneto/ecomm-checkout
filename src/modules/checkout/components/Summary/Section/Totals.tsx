@@ -26,6 +26,8 @@ const TotalsSection = () => {
     return formatPrice(price);
   };
 
+  console.log(data);
+
   return (
     <div className="flex flex-col gap-1.5 py-3 w-full">
       <div className="flex justify-between items-center text-sm border-b pb-1.5">

@@ -66,7 +66,7 @@ export function makeServer({ environment = "development" } = {}) {
       server.create("product", {
         id: "1",
         name: "Produto #1",
-        price: 100000,
+        price: 10000,
         image: "https://placehold.co/51x64/png",
         quantity: 1,
       });
@@ -125,11 +125,13 @@ export function makeServer({ environment = "development" } = {}) {
           0
         );
 
+        const shippingPrice = 5000;
+
         return {
           products: products.models,
           subtotal,
-          shipping: 0,
-          total: subtotal,
+          shipping: shippingPrice,
+          total: subtotal + shippingPrice,
         };
       });
 

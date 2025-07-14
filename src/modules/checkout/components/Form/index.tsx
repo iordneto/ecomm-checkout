@@ -36,12 +36,14 @@ type CheckoutFormProps = {
   form: UseFormReturn<CheckoutFormData>;
   onAddressChange: (zipCode: string) => void;
   showAddress: boolean;
+  removeAddress: () => void;
 };
 
 const CheckoutForm = ({
   form,
   onAddressChange,
   showAddress,
+  removeAddress,
 }: CheckoutFormProps) => {
   const [isOtherPerson, setIsOtherPerson] = useState(false);
   const showZipCode = !showAddress;
@@ -185,6 +187,8 @@ const CheckoutForm = ({
             <Button
               variant="link"
               className="text-xs text-brand underline cursor-pointer  hover:scale-105 transition-all duration-300"
+              onClick={removeAddress}
+              type="button"
             >
               Alterar
             </Button>

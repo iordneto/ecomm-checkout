@@ -36,16 +36,26 @@ const CheckoutPage = () => {
   });
 
   const handleAddressChange = (zipCode: string) => {
-    searchAddress(zipCode).then((data) => {
-      if (data) {
-        form.setValue("street", data?.street || "");
-        form.setValue("neighborhood", data?.neighborhood || "");
-        form.setValue("city", data?.city || "");
-        form.setValue("state", data?.state || "");
-        form.setValue("country", data?.country || "");
-        setShowAddress(true);
-      }
-    });
+    if (zipCode.length === 8) {
+      searchAddress(zipCode).then((data) => {
+        if (data) {
+          form.setValue("street", data?.street || "");
+          form.setValue("neighborhood", data?.neighborhood || "");
+          form.setValue("city", data?.city || "");
+          form.setValue("state", data?.state || "");
+          form.setValue("country", data?.country || "");
+          setShowAddress(true);
+        }
+      });
+    }
+  };
+
+  const removeAddress = () => {
+    form.resetField("street");
+    form.resetField("neighborhood");
+    form.resetField("city");
+    form.resetField("state");
+    form.resetField("country");
   };
 
   const onSubmit = (data: CheckoutFormData) => {
@@ -61,6 +71,7 @@ const CheckoutPage = () => {
               <CheckoutForm
                 form={form}
                 onAddressChange={handleAddressChange}
+                removeAddress={removeAddress}
                 showAddress={showAddress}
               />
             </div>
