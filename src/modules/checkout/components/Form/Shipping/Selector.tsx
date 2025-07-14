@@ -2,9 +2,9 @@ import { RadioGroup } from "@/components/ui/radio-group";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
+import { ShippingData } from "../../../types/shipping";
 import MoreOptionsButton from "./MoreOptionsButton";
 import ShippingOption from "./Option";
-import { ShippingData } from "./types";
 
 const ShippingSelector = () => {
   const shippingOptions: ShippingData[] = [

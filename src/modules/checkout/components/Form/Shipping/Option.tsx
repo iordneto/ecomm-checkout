@@ -2,7 +2,7 @@ import { RadioGroupItem } from "@/components/ui/radio-group";
 
 import { Label } from "@/components/ui/label";
 import { motion } from "framer-motion";
-import { ShippingData } from "./types";
+import { ShippingData } from "../../../types/shipping";
 
 type ShippingOptionProps = ShippingData;
 

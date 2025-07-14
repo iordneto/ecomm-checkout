@@ -1,6 +1,6 @@
 "use client";
 
-import CheckoutForm from "./components/Form";
+import CheckoutForm from "../../modules/checkout/components/Form";
 
 const CheckoutPage = () => {
   return (

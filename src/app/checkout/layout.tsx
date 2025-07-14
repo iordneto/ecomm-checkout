@@ -2,7 +2,7 @@
 import { Breadcrumb } from "@/components/Breadcrumb";
 import Container from "@/components/Container";
 import type { ReactNode } from "react";
-import Header from "./components/Header";
+import Header from "../../modules/checkout/components/Header";
 
 const CheckoutLayout = ({ children }: { children: ReactNode }) => {
   return (
