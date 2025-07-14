@@ -16,7 +16,7 @@ const Image = ({ src, alt, fallbackSrc, ...props }: SafeImageProps) => {
       src={imgSrc}
       alt={alt}
       onError={() => fallbackSrc && setImgSrc(fallbackSrc)}
-      placeholder="blur"
+      /* placeholder="blur" */
     />
   );
 };

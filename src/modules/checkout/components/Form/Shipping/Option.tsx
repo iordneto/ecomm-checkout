@@ -1,6 +1,7 @@
 import { RadioGroupItem } from "@/components/ui/radio-group";
 
 import { Label } from "@/components/ui/label";
+import { formatPrice } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { ShippingData } from "../../../types/shipping";
@@ -14,7 +15,11 @@ const ShippingOption = ({
   id,
   isSelected,
 }: ShippingOptionProps) => {
-  const formattedPrice = price ? `R$ ${price.toFixed(2)}` : "Grátis";
+  const getFormattedPrice = () => {
+    if (!price) return "Grátis";
+    return formatPrice(price);
+  };
+
   const ref = useRef<HTMLLabelElement>(null);
 
   return (
@@ -45,7 +50,7 @@ const ShippingOption = ({
           <span className="text-xs text-muted-foreground">{description}</span>
         </div>
         <span className={isSelected ? "text-brand font-medium" : ""}>
-          {formattedPrice}
+          {getFormattedPrice()}
         </span>
       </Label>
     </motion.div>
