@@ -8,8 +8,25 @@ import { useMemo } from "react";
 import useSWR from "swr";
 
 const ProductsSection = () => {
-  const { data, isLoading } = useSWR<CartSummary>("/api/cart", fetcher);
+  const { data, isLoading, error } = useSWR<CartSummary>("/api/cart", fetcher, {
+    errorRetryInterval: 1000,
+    errorRetryCount: 3,
+    shouldRetryOnError: true,
+    dedupingInterval: 2000,
+  });
   const products = useMemo(() => data?.products || [], [data]);
+
+  if (error) {
+    return (
+      <div className="flex flex-col gap-3 w-full">
+        <div className="p-4 border rounded-md border-red-200 bg-red-50">
+          <div className="text-sm text-red-600">
+            Failed to load products. Please refresh the page.
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (

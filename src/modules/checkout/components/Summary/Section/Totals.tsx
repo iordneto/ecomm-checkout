@@ -4,10 +4,26 @@ import { CartSummary } from "@/lib/api";
 import fetcher from "@/lib/fetcher";
 import { formatPrice } from "@/lib/utils";
 import useSWR from "swr";
-const TotalsSection = () => {
-  const { data, isLoading } = useSWR<CartSummary>("/api/cart", fetcher);
 
-  console.log(data);
+const TotalsSection = () => {
+  const { data, isLoading, error } = useSWR<CartSummary>("/api/cart", fetcher, {
+    errorRetryInterval: 1000,
+    errorRetryCount: 3,
+    shouldRetryOnError: true,
+    dedupingInterval: 2000,
+  });
+
+  if (error) {
+    return (
+      <div className="flex flex-col gap-3 w-full">
+        <div className="p-4 border rounded-md border-red-200 bg-red-50">
+          <div className="text-sm text-red-600">
+            Failed to load cart totals. Please refresh the page.
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -25,8 +41,6 @@ const TotalsSection = () => {
     if (!price) return "Free";
     return formatPrice(price);
   };
-
-  console.log(data);
 
   return (
     <div className="flex flex-col gap-1.5 py-3 w-full">

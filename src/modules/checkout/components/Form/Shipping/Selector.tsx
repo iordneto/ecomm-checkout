@@ -21,10 +21,16 @@ type ShippingSelectorProps = {
 };
 
 const ShippingSelector = ({ form }: ShippingSelectorProps) => {
-  const { data: shippingOptions, isLoading } = useSWR<ShippingOptionType[]>(
-    "/api/shipping",
-    fetcher
-  );
+  const {
+    data: shippingOptions,
+    isLoading,
+    error,
+  } = useSWR<ShippingOptionType[]>("/api/shipping", fetcher, {
+    errorRetryInterval: 1000,
+    errorRetryCount: 3,
+    shouldRetryOnError: true,
+    dedupingInterval: 2000,
+  });
   const [expanded, setExpanded] = useState(false);
 
   const selectedOptionId = form.watch("shipping");
@@ -40,6 +46,16 @@ const ShippingSelector = ({ form }: ShippingSelectorProps) => {
   const handleToggleExpand = () => {
     setExpanded(!expanded);
   };
+
+  if (error) {
+    return (
+      <div className="flex flex-col gap-3 p-4 border rounded-md border-red-200 bg-red-50">
+        <div className="text-sm text-red-600">
+          Failed to load shipping options. Please try again.
+        </div>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
