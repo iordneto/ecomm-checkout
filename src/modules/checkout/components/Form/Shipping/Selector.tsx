@@ -85,7 +85,10 @@ const ShippingSelector = ({ form }: ShippingSelectorProps) => {
                   {options.map((option) => (
                     <FormItem key={option.id}>
                       <FormControl>
-                        <ShippingOption {...option} />
+                        <ShippingOption
+                          {...option}
+                          isSelected={option.id === selectedOptionId}
+                        />
                       </FormControl>
                     </FormItem>
                   ))}
