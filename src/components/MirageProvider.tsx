@@ -9,10 +9,8 @@ export default function MirageProvider({
   children: React.ReactNode;
 }) {
   useEffect(() => {
-    // Inicializar MirageJS apenas no desenvolvimento
-    if (process.env.NODE_ENV === "development") {
-      startMirage();
-    }
+    // Inicializar MirageJS sempre que estivermos no browser
+    startMirage();
   }, []);
 
   return <>{children}</>;

@@ -5,7 +5,9 @@ let server: Server | null = null;
 
 export function startMirage() {
   if (typeof window !== "undefined" && !server) {
-    server = makeServer({ environment: "development" });
+    // Detectar o ambiente automaticamente
+    const environment = process.env.NODE_ENV || "development";
+    server = makeServer({ environment });
   }
   return server;
 }
