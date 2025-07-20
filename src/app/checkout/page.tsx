@@ -82,7 +82,7 @@ const CheckoutPage = () => {
           <div className="flex flex-col gap-3 md:flex-row">
             <div className="w-full md:w-8/12 flex justify-end mb-10">
               <Button type="submit" size="xl" className="uppercase bg-brand">
-                Continuar para pagamento
+                Continue to Payment
               </Button>
             </div>
             <div className="flex w-full md:w-4/12"></div>

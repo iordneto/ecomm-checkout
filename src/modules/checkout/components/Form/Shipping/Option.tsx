@@ -15,7 +15,7 @@ const ShippingOption = ({
   isSelected,
 }: ShippingOptionProps) => {
   const getFormattedPrice = () => {
-    if (!price) return "Grátis";
+    if (!price) return "Free";
     return formatPrice(price);
   };
 

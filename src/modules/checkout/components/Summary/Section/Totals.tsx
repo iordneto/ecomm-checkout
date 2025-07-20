@@ -22,7 +22,7 @@ const TotalsSection = () => {
   const { subtotal: subTotal, shipping, total } = data || {};
 
   const getFormattedPrice = (price: number) => {
-    if (!price) return "Grátis";
+    if (!price) return "Free";
     return formatPrice(price);
   };
 
@@ -35,7 +35,7 @@ const TotalsSection = () => {
         {subTotal && <div>{getFormattedPrice(subTotal)}</div>}
       </div>
       <div className="flex justify-between items-center text-sm border-b pb-1.5">
-        <div>Frete</div>
+        <div>Shipping</div>
         {shipping && <div>{getFormattedPrice(shipping)}</div>}
       </div>
       <div className="flex justify-between items-center font-bold text-lg">

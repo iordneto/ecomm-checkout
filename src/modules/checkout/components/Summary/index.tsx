@@ -15,7 +15,7 @@ const CheckoutSummary = () => {
           className="text-sm text-brand text-center w-full cursor-pointer"
         >
           <CouponFilledIcon />
-          Adicionar cupom de desconto
+          Add discount coupon
         </Button>
       </div>
     </div>

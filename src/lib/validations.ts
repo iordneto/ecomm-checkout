@@ -1,23 +1,23 @@
 /**
- * Validações utilizadas no projeto
+ * Validations used in the project
  */
 
 /**
- * Valida se um CPF é válido
- * @param cpf - CPF com ou sem formatação
- * @returns true se o CPF for válido
+ * Validates if a CPF is valid
+ * @param cpf - CPF with or without formatting
+ * @returns true if the CPF is valid
  */
 export const isValidCPF = (cpf: string): boolean => {
-  // Remove caracteres não numéricos
+  // Remove non-numeric characters
   const cleanCPF = cpf.replace(/\D/g, "");
 
-  // Verifica se tem 11 dígitos
+  // Check if it has 11 digits
   if (cleanCPF.length !== 11) return false;
 
-  // Verifica se todos os dígitos são iguais
+  // Check if all digits are the same
   if (/^(\d)\1{10}$/.test(cleanCPF)) return false;
 
-  // Valida os dígitos verificadores
+  // Validate check digits
   let sum = 0;
   for (let i = 0; i < 9; i++) {
     sum += parseInt(cleanCPF.charAt(i)) * (10 - i);
@@ -38,21 +38,21 @@ export const isValidCPF = (cpf: string): boolean => {
 };
 
 /**
- * Valida se um CNPJ é válido
- * @param cnpj - CNPJ com ou sem formatação
- * @returns true se o CNPJ for válido
+ * Validates if a CNPJ is valid
+ * @param cnpj - CNPJ with or without formatting
+ * @returns true if the CNPJ is valid
  */
 export const isValidCNPJ = (cnpj: string): boolean => {
-  // Remove caracteres não numéricos
+  // Remove non-numeric characters
   const cleanCNPJ = cnpj.replace(/\D/g, "");
 
-  // Verifica se tem 14 dígitos
+  // Check if it has 14 digits
   if (cleanCNPJ.length !== 14) return false;
 
-  // Verifica se todos os dígitos são iguais
+  // Check if all digits are the same
   if (/^(\d)\1{13}$/.test(cleanCNPJ)) return false;
 
-  // Valida primeiro dígito verificador
+  // Validate first check digit
   let sum = 0;
   const weights1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
   for (let i = 0; i < 12; i++) {
@@ -62,7 +62,7 @@ export const isValidCNPJ = (cnpj: string): boolean => {
   const digit1 = remainder < 2 ? 0 : 11 - remainder;
   if (digit1 !== parseInt(cleanCNPJ.charAt(12))) return false;
 
-  // Valida segundo dígito verificador
+  // Validate second check digit
   sum = 0;
   const weights2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
   for (let i = 0; i < 13; i++) {
@@ -76,9 +76,9 @@ export const isValidCNPJ = (cnpj: string): boolean => {
 };
 
 /**
- * Valida se um documento é um CPF ou CNPJ válido
- * @param document - CPF ou CNPJ com ou sem formatação
- * @returns true se o documento for válido
+ * Validates if a document is a valid CPF or CNPJ
+ * @param document - CPF or CNPJ with or without formatting
+ * @returns true if the document is valid
  */
 export const isValidCPForCNPJ = (document: string): boolean => {
   const cleanDocument = document.replace(/\D/g, "");
@@ -93,9 +93,9 @@ export const isValidCPForCNPJ = (document: string): boolean => {
 };
 
 /**
- * Valida se um CEP brasileiro é válido
- * @param cep - CEP com ou sem formatação
- * @returns true se o CEP for válido
+ * Validates if a Brazilian ZIP code is valid
+ * @param cep - ZIP code with or without formatting
+ * @returns true if the ZIP code is valid
  */
 export const isValidCEP = (cep: string): boolean => {
   const cleanCEP = cep.replace(/\D/g, "");
@@ -103,12 +103,12 @@ export const isValidCEP = (cep: string): boolean => {
 };
 
 /**
- * Valida se um telefone brasileiro é válido
- * @param phone - Telefone com ou sem formatação
- * @returns true se o telefone for válido
+ * Validates if a Brazilian phone number is valid
+ * @param phone - Phone number with or without formatting
+ * @returns true if the phone number is valid
  */
 export const isValidBrazilianPhone = (phone: string): boolean => {
   const cleanPhone = phone.replace(/\D/g, "");
-  // Aceita telefone fixo (10 dígitos) ou celular (11 dígitos) com DDD
+  // Accepts landline (10 digits) or mobile (11 digits) with area code
   return /^[1-9]{2}[2-9][0-9]{7,8}$/.test(cleanPhone);
 };

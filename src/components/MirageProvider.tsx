@@ -9,7 +9,7 @@ export default function MirageProvider({
   children: React.ReactNode;
 }) {
   useEffect(() => {
-    // Inicializar MirageJS sempre que estivermos no browser
+    // Initialize MirageJS whenever we are in the browser
     startMirage();
   }, []);
 

@@ -47,7 +47,7 @@ export function makeServer({ environment = "development" } = {}) {
     factories: {
       product: Factory.extend({
         name(i: number) {
-          return `Produto #${i + 1}`;
+          return `Product #${i + 1}`;
         },
         price() {
           return Math.floor(Math.random() * 100000) + 10000;
@@ -65,7 +65,7 @@ export function makeServer({ environment = "development" } = {}) {
       /* PRODUCTS */
       server.create("product", {
         id: "1",
-        name: "Produto #1",
+        name: "Product #1",
         price: 10000,
         image: "https://placehold.co/51x64/png",
         quantity: 1,
@@ -73,7 +73,7 @@ export function makeServer({ environment = "development" } = {}) {
 
       server.create("product", {
         id: "2",
-        name: "Produto #2",
+        name: "Product #2",
         price: 15000,
         image: "https://placehold.co/51x64/png",
         quantity: 1,
@@ -82,35 +82,35 @@ export function makeServer({ environment = "development" } = {}) {
       /* SHIPPING OPTIONS */
       server.create("shippingOption", {
         id: "1",
-        title: "Pedido a ser retirado em MUNDALUA Castelo",
-        description: "Avenida Miguel Perrela, 455 - Castelo",
+        title: "Pickup at MUNDALUA Castle",
+        description: "Miguel Perrela Avenue, 455 - Castle",
         price: 0,
-        deliveryTime: "Imediato",
+        deliveryTime: "Immediate",
         isSelected: true,
       });
 
       server.create("shippingOption", {
         id: "2",
-        title: "Sedex",
-        description: "Entrega em 3 dias úteis",
+        title: "Express Shipping",
+        description: "Delivery in 3 business days",
         price: 1000,
-        deliveryTime: "3 dias úteis",
+        deliveryTime: "3 business days",
       });
 
       server.create("shippingOption", {
         id: "3",
-        title: "PAC",
-        description: "Entrega em 5 dias úteis",
+        title: "Standard Shipping",
+        description: "Delivery in 5 business days",
         price: 500,
-        deliveryTime: "5 dias úteis",
+        deliveryTime: "5 business days",
       });
 
       server.create("shippingOption", {
         id: "4",
-        title: "Entrega Expressa",
-        description: "Entrega em 1 dia útil",
+        title: "Next Day Delivery",
+        description: "Delivery in 1 business day",
         price: 2000,
-        deliveryTime: "1 dia útil",
+        deliveryTime: "1 business day",
       });
     },
 
@@ -141,43 +141,43 @@ export function makeServer({ environment = "development" } = {}) {
 
         const addresses: Record<string, Partial<Address>> = {
           "01310100": {
-            country: "Brasil",
-            state: "SP",
-            city: "São Paulo",
-            neighborhood: "Bela Vista",
-            street: "Avenida Paulista",
+            country: "United States",
+            state: "CA",
+            city: "Los Angeles",
+            neighborhood: "Downtown",
+            street: "Main Street",
           },
           "20040020": {
-            country: "Brasil",
-            state: "RJ",
-            city: "Rio de Janeiro",
-            neighborhood: "Centro",
-            street: "Avenida Rio Branco",
+            country: "United States",
+            state: "NY",
+            city: "New York",
+            neighborhood: "Manhattan",
+            street: "Broadway",
           },
           "30112000": {
-            country: "Brasil",
-            state: "MG",
-            city: "Belo Horizonte",
-            neighborhood: "Centro",
-            street: "Avenida Afonso Pena",
+            country: "United States",
+            state: "TX",
+            city: "Houston",
+            neighborhood: "Downtown",
+            street: "Main Street",
           },
           "88048644": {
-            country: "Brasil",
-            state: "SC",
-            city: "Florianópolis",
-            neighborhood: "Jardim das Flores",
-            street: "Rua das Flores",
+            country: "United States",
+            state: "FL",
+            city: "Miami",
+            neighborhood: "South Beach",
+            street: "Ocean Drive",
           },
         };
 
         console.log("zipcode", zipCode);
 
         const addressData = addresses[zipCode] || {
-          country: "Brasil",
-          state: "SP",
-          city: "São Paulo",
-          neighborhood: "Jardim Paulista",
-          street: "Avenida Paulista",
+          country: "United States",
+          state: "CA",
+          city: "Los Angeles",
+          neighborhood: "Downtown",
+          street: "Main Street",
         };
 
         return {

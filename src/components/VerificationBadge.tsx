@@ -7,8 +7,8 @@ const VerificationBadge = () => (
       <Image src={SecurityBadge} alt="Verification Badge" />
     </div>
     <div className="flex flex-col">
-      <span className="text-xs font-bold">COMPRA SEGURA</span>
-      <span className="text-[10px] text-muted-foreground">100% GARANTIDO</span>
+      <span className="text-xs font-bold">SECURE PURCHASE</span>
+      <span className="text-[10px] text-muted-foreground">100% GUARANTEED</span>
     </div>
   </div>
 );

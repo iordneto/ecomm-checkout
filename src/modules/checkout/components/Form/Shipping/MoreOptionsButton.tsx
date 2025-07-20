@@ -41,12 +41,12 @@ const MoreOptionsButton = ({ expanded, onClick }: MoreOptionsButtonProps) => {
             <div className="flex items-center gap-1">
               {expanded ? (
                 <>
-                  Fechar
+                  Close
                   <ChevronUpIcon className="w-4 h-4 stroke-[3.5px]" />
                 </>
               ) : (
                 <>
-                  Mais opções
+                  More options
                   <ChevronDownIcon className="w-4 h-4 stroke-[3.5px]" />
                 </>
               )}

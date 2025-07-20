@@ -7,30 +7,30 @@ import { z } from "zod";
 
 export const checkoutFormSchema = z
   .object({
-    name: z.string().min(1, "Nome é obrigatório"),
-    lastName: z.string().min(1, "Sobrenome é obrigatório"),
+    name: z.string().min(1, "Name is required"),
+    lastName: z.string().min(1, "Last name is required"),
     phone: z
       .string()
-      .min(1, "Telefone é obrigatório")
-      .refine(isValidBrazilianPhone, "Telefone inválido"),
+      .min(1, "Phone is required")
+      .refine(isValidBrazilianPhone, "Invalid phone number"),
     zipCode: z
       .string()
-      .min(1, "CEP é obrigatório")
-      .refine(isValidCEP, "CEP inválido"),
-    email: z.email("E-mail inválido").min(1, "E-mail é obrigatório"),
+      .min(1, "ZIP code is required")
+      .refine(isValidCEP, "Invalid ZIP code"),
+    email: z.email("Invalid email").min(1, "Email is required"),
     otherPerson: z.boolean(),
     otherPersonName: z.string().optional(),
     otherPersonLastName: z.string().optional(),
-    shipping: z.string().min(1, "Frete é obrigatório"),
-    country: z.string().min(1, "País é obrigatório"),
-    state: z.string().min(1, "Estado é obrigatório"),
-    city: z.string().min(1, "Cidade é obrigatório"),
-    neighborhood: z.string().min(1, "Bairro é obrigatório"),
-    street: z.string().min(1, "Rua é obrigatório"),
+    shipping: z.string().min(1, "Shipping is required"),
+    country: z.string().min(1, "Country is required"),
+    state: z.string().min(1, "State is required"),
+    city: z.string().min(1, "City is required"),
+    neighborhood: z.string().min(1, "Neighborhood is required"),
+    street: z.string().min(1, "Street is required"),
     cpf: z
       .string()
-      .min(1, "CPF/CNPJ é obrigatório")
-      .refine(isValidCPForCNPJ, "CPF ou CNPJ inválido"),
+      .min(1, "CPF/CNPJ is required")
+      .refine(isValidCPForCNPJ, "Invalid CPF or CNPJ"),
   })
   .refine(
     (data) => {
@@ -40,7 +40,7 @@ export const checkoutFormSchema = z
       return true;
     },
     {
-      message: "Nome é obrigatório",
+      message: "Name is required",
       path: ["otherPersonName"],
     }
   )
@@ -52,7 +52,7 @@ export const checkoutFormSchema = z
       return true;
     },
     {
-      message: "Sobrenome é obrigatório",
+      message: "Last name is required",
       path: ["otherPersonLastName"],
     }
   );

@@ -14,7 +14,7 @@ export const searchAddress = async (
     const cleanZipCode = zipCode.replace(/\D/g, "");
     const response = await fetch(`/api/address/${cleanZipCode}`);
     if (!response.ok) {
-      throw new Error("Erro ao buscar endereço");
+      throw new Error("Failed to fetch address");
     }
     return response.json() as Promise<Address>;
   } catch {

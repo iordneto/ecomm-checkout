@@ -54,20 +54,20 @@ const CheckoutForm = ({
   const debouncedSearchAddress = debounce(handleSearchAddress, 500);
 
   const addressFirstLine = form.watch("street");
-  const zipCodeFormatted = `CEP ${form.watch("zipCode")}`;
+  const zipCodeFormatted = `ZIP ${form.watch("zipCode")}`;
   const neighborhood = form.watch("neighborhood");
   const addressThirdLine = form.watch("city") + " " + form.watch("state");
 
   return (
     <div className="flex flex-col items-end gap-2.5">
-      <Section title="Dados de contato">
+      <Section title="Contact Information">
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="E-mail" {...field} />
+                <Input placeholder="Email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -79,20 +79,20 @@ const CheckoutForm = ({
             onCheckedChange={() => setIsOtherPerson((checked) => !checked)}
             className="data-[state=checked]:bg-brand data-[state=checked]:text-white data-[state=checked]:border-none"
           />
-          <Label>Receber ofertas e novidades pelo e-mail</Label>
+          <Label>Receive offers and news by email</Label>
         </div>
       </Section>
-      <Section title="Entrega">
+      <Section title="Delivery">
         <ShippingSelector form={form} />
       </Section>
-      <Section title="Dados para nota fiscal">
+      <Section title="Billing Information">
         <FormField
           control={form.control}
           name="country"
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="País" {...field} />
+                <Input placeholder="Country" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -104,20 +104,20 @@ const CheckoutForm = ({
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="CPF ou CNPJ" {...field} />
+                <Input placeholder="CPF or CNPJ" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Label>Dados de quem vai fazer o pagamento</Label>
+        <Label>Payment Information</Label>
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="Nome" {...field} />
+                <Input placeholder="First Name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -129,7 +129,7 @@ const CheckoutForm = ({
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="Sobrenome" {...field} />
+                <Input placeholder="Last Name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -141,7 +141,7 @@ const CheckoutForm = ({
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="Telefone com DDD" {...field} />
+                <Input placeholder="Phone Number" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -155,7 +155,7 @@ const CheckoutForm = ({
               <FormItem>
                 <FormControl>
                   <Input
-                    placeholder="CEP"
+                    placeholder="ZIP Code"
                     {...field}
                     onChange={(e) => {
                       field.onChange(e);
@@ -190,7 +190,7 @@ const CheckoutForm = ({
               onClick={removeAddress}
               type="button"
             >
-              Alterar
+              Change
             </Button>
           </div>
         )}
@@ -211,7 +211,7 @@ const CheckoutForm = ({
                     className="data-[state=checked]:bg-brand data-[state=checked]:text-white data-[state=checked]:border-none"
                   />
                 </FormControl>
-                <FormLabel>Outra pessoa buscará pelo pedido</FormLabel>
+                <FormLabel>Someone else will pick up the order</FormLabel>
                 <FormMessage />
               </FormItem>
             )}
@@ -233,7 +233,10 @@ const CheckoutForm = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Nome da outra pessoa" {...field} />
+                      <Input
+                        placeholder="Other person's first name"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -246,7 +249,7 @@ const CheckoutForm = ({
                   <FormItem>
                     <FormControl>
                       <Input
-                        placeholder="Sobrenome da outra pessoa"
+                        placeholder="Other person's last name"
                         {...field}
                       />
                     </FormControl>

@@ -13,8 +13,8 @@ const CheckoutLayout = ({ children }: { children: ReactNode }) => {
           <div className="flex flex-col gap-4">
             <Breadcrumb
               breadcrumbs={[
-                { label: "Entrega", href: "/checkout" },
-                { label: "Pagamento", href: "/checkout/payment" },
+                { label: "Delivery", href: "/checkout" },
+                { label: "Payment", href: "/checkout/payment" },
               ]}
             />
             {children}
